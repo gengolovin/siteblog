@@ -18,20 +18,23 @@
                                 <div class="single-content">
                                     <div class="tags">
                                         <p>
-                                        <span>Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></span>
+                                        <span>Категория:&nbsp; <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></span>
                                        
                                         {% if post.tags.exists %}
+                                        &nbsp;
                                         <span>
                                         Tags:
+                                        &nbsp;
                                         {% for tag in post.tags.all %}
                                         <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                                        &nbsp;
                                         {% endfor %}
                                         </span>
                                      
                                         {% endif %}
-                                        <span>Views: {{ post.views }}</span>
+                                        &nbsp;
+                                        <span>Кол-во просмотров:&nbsp; {{ post.views }}</span>
                                         </p>
-                                        
                                     </div>
                                     {{ post.content|safe }}
                                 </div>
@@ -40,34 +43,7 @@
                     </div>
                     <div class="col-md-4">
                         {% get_popular 5 %}
-                        <div class="tags">
-                            <h2 class="sidebar-title">Tags</h2>
-                            <p><a href="#">Adventure</a></p>
-                            <p><a href="#">Animals</a></p>
-                            <p><a href="#">Asia</a></p>
-                            <p><a href="#">Beauty</a></p>
-                            <p><a href="#">Canada</a></p>
-                            <p><a href="#">Celebration</a></p>
-                            <p><a href="#">City</a></p>
-                            <p><a href="#">Coffee</a></p>
-                            <p><a href="#">Constructions</a></p>
-                            <p><a href="#">Europe</a></p>
-                            <p><a href="#">Adventure</a></p>
-                            <p><a href="#">Animals</a></p>
-                            <p><a href="#">Asia</a></p>
-                            <p><a href="#">Beauty</a></p>
-                            <p><a href="#">Canada</a></p>
-                            <p><a href="#">Celebration</a></p>
-                            <p><a href="#">City</a></p>
-                            <p><a href="#">Coffee</a></p>
-                            <p><a href="#">Constructions</a></p>
-                            <p><a href="#">Europe</a></p>
-                            <p><a href="#">Adventure</a></p>
-                            <p><a href="#">Animals</a></p>
-                            <p><a href="#">Asia</a></p>
-                            <p><a href="#">Beauty</a></p>
-                            <p><a href="#">Canada</a></p>
-                        </div>
+                         {% get_tags %}
                         <div class="newsletter">
                             <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
                             <form action="#" method="post">

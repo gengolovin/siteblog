@@ -7,7 +7,6 @@
         {% else %}
         <img src="https://picsum.photos/id/1060/300/300/?blur=2" alt="{{ post.title }}">
         {% endif %}
-
         <div class="portfolio-text">
             <h5><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
             <p>Автор: {{ post.author }} <span>|</span>{{ post.created_at|date:"d.m.Y" }}</p>
