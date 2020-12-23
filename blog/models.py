@@ -39,7 +39,7 @@ class Post(models.Model):
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name='Фото')
     views = models.IntegerField(default=0, verbose_name='Кол-во просмотров')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='posts', verbose_name='Категория')
-    tags = models.ManyToManyField(Tag, blank=True, related_name='posts')
+    tags = models.ManyToManyField(Tag, blank=True, related_name='posts', verbose_name='Tags')
     status = models.BooleanField(default=True, verbose_name='Статус')
 
     def __str__(self):
