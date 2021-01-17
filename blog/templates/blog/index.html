@@ -1,77 +1,61 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load sidebar %}
+{% load category %}
 
 {% block title %}{{ title }} :: {{ block.super }}{% endblock %}
 
 {% block content %}
+ <!-- Page Content -->
+ <div class="container">
 
-<section class="bg-text-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="bg-text">
-                    <h3>IT Блог</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <div class="row">
+    
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+        <!-- Blog Post -->
+        
+        {% for post in posts %}
+        <div class="card border-light mb-4">
+              
+          <div class="card-body">
+            <h4 class="card-title">{{ post.title }}</h4>
+            <p class="card-text">{{ post.content|truncatewords_html:40|safe }}</p>
+            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            <h6><i class="fa fa-calendar fa-fw"></i>&nbsp;&nbsp;{{ post.created_at|date:"d.m.Y" }}
+              {% if post.author %}
+                  <i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;{{ post.author }}</h6>
+              {% else %}
+                  <i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;Нет автора</h6>
+              {% endif %}
 
-<section class="blog-post-area">
-    <div class="container">
-        <div class="row">
-            <div class="blog-post-area-style">
-                <div class="col-md-12">
-                    <div class="single-post-big">
-                        <div class="big-image">
-                            <img src="{% static 'img/post-image1.jpg' %}" alt="">
-                        </div>
-                        <div class="big-text">
-                            <h3><a href="#">Post Title Goes Here.</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                            <h4><span class="date">25 February 2017</span><span class="author">Posted By: <span
-                                    class="author-name">Kabbo Liate</span></span>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-                {% for post in posts %}
-                <div class="col-md-3">
-                    <div class="single-post">
-                        {% if post.photo %}
-                            <img src="{{ post.photo.url }}" alt="{{ post.title }}">
-                        {% else %}
-                            <img src="https://picsum.photos/id/1060/300/201/?blur=2" alt="{{ post.title }}">
-                        {% endif %}
-                        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-                        <h4><span>Автор: <span class="author-name">{{ post.author }}</span></span>
-                        </h4>
-                        {{ post.content| truncatewords_html:25|safe }}
-                        <h4><span>{{ post.created_at|date:"d.m.Y" }}</span></h4>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    {% if page_obj.has_other_pages %}
-    <div class="pegination">
-       <div class="nav-links">
-            {% if page_obj.has_previous %}
-                <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a> 
-            {% endif %}
+          </div>
             
+        </div>
+        {% empty %}
+        <div class="info-search">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> К сожалению! </strong> По вашему запросу&nbsp;&nbsp;{{ info }}&nbsp;&nbsp;ничего не найдено....
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+    
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="pegination">
+          <div class="nav-links">
+            {% if page_obj.has_previous %}
+                <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            {% endif %}
+
             {% for p in page_obj.paginator.page_range %}
-               
+                
                 {% if page_obj.number == p %}
                     <span class="page-numbers current">{{ p }}</span>
                 {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
@@ -80,12 +64,39 @@
 
             {% endfor %}
 
-            {% if page_obj.has_next %}         
+            {% if page_obj.has_next %}
                 <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
             {% endif %}
+          </div> 
         </div>
+        {% endif %}
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+      {% get_popular 5 %}
+
+        <!-- Categories Widget -->
+      {% show_category %}
+
+        <!-- Tags Widget -->
+      {% get_tags %}
+         <!-- Side Widget -->
+      <div class="card border-light my-4">
+        <h5 class="card-header">Side Widget</h5>
+        <div class="card-body">
+          You can put anything you want inside of these side widgets.
+        </div>
+      </div>
+
+      </div>
+
     </div>
-    {% endif %}
-</section>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
 
 {% endblock %}

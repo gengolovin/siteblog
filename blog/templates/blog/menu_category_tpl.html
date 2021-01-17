@@ -1,0 +1,5 @@
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    {% for item in categories %}
+    <a class="dropdown-item" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+    {% endfor %}  
+</div>
