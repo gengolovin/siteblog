@@ -382,3 +382,76 @@ font-family: "Exo 2", sans-serif;
   margin-top: 50px;
 
 }
+
+
+.info-login {
+  text-align: center;
+  background-image: url(img/bg-images.jpeg);
+  background-color: #1aaae5;
+  background-position: center center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: repeat-x;
+  padding-top: 1.75em;
+  padding-bottom: 1em;
+}
+
+.info-logout {
+  text-align: center;
+  background-color: #fff;
+  background-position: center center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: repeat-x;
+  padding-top: 4em;
+  padding-bottom: 1em;
+}
+
+
+header.login {
+  text-align: left;
+  color: #fff;
+  font-size: 1.2em;
+  width:400px;
+  margin: 30px auto 15px;
+}
+
+.sider-content{
+  margin-top: 3.5em;
+}
+
+.green-btn {
+  transition: all 375ms;
+  text-decoration: none;
+  background: #00bf8a;
+  max-width: 120px;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #00bf8a;
+  padding-top: 0.6rem;
+}
+
+.green-btn:hover {
+  background: #31b64e;
+  color: #fff;
+}
+
+.white-btn {
+  border: 1px solid #ebf2fa;
+  color: #00274b;
+  max-width: 162px;
+  margin-right: 25px;
+  font-weight: 700;
+  font-size: 16px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.white-btn:hover{
+  color: #1aaae5;
+  border: 1px solid #1aaae5; 
+}

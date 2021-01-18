@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+
 class Category(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование')
     slug = models.SlugField(max_length=255, verbose_name='Url', unique=True)
@@ -55,6 +56,4 @@ class Post(models.Model):
         verbose_name = 'Статья(ю)'
         verbose_name_plural ='Статьи'
         ordering = ['-created_at']
-
-
 

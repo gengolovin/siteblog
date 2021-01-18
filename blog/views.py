@@ -1,7 +1,13 @@
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
 from .models import Post, Tag, Category
 from django.db.models import F
+from .forms import LoginForm
 
 class Home(ListView):
     model = Post
@@ -75,3 +81,35 @@ class Search(ListView):
         context['info']= str(self.request.GET.get('s'))
         context['title']= 'Поиск по сайту ' + str(self.request.GET.get('s'))
         return context
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request,
+                                username=cd['username'],
+                                password=cd['password'])
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponse('Успешная аунтификация')
+            else:
+                return HttpResponse('Disadled account')
+        else:
+            return HttpResponse('Invalid login')
+    else:
+        form = LoginForm()
+    return render(request, 'blog/login.html', {'form': form})
+
+class BLoginView(LoginView):
+    template_name = 'blog/login.html'
+
+class BLogoutView(LoginRequiredMixin, LogoutView):
+    template_name ='blog/logout.html'
+
+
+@login_required
+def profile(request):
+    return render(request,'blog/profile.html')

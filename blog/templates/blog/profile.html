@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sidebar %}
+{% load category %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+ <!-- Page Content -->
+ 
+ <div class="container">
+
+    <div class="row">
+      <div class="col-md-4">
+            <div class="sider-content">
+              
+             <!-- Side Widget -->
+              <div class="card border-light my-4">
+                <h5 class="card-header">Меню профиля</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                          <ul class="list-unstyled mb-0">
+                            <li><a href="#">Изменить профиль</a></li>
+                            <li><a href="#">Смена пароля</a></li>
+                                       
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+            
+         <div class="single-content">
+            <h1> Профиль пользователя</h1>
+            <h3>{{ user.username }}</h3>
+            {% if user.first_name and user.last_name %}
+            <p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+            {% else %}
+            <p>Здравствуйте!</p>
+            {% endif %}
+         </div>        
+      </div>
+
+    
+      
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+{% endblock %}

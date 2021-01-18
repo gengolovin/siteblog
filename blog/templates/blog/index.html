@@ -6,6 +6,26 @@
 {% block title %}{{ title }} :: {{ block.super }}{% endblock %}
 
 {% block content %}
+<section class="wrapper info-section">
+	<div class="container 50%">
+		<section> 
+			<header class="major">
+				<h1>Блок IT специалиста</h1>
+				<p>Найдите нужную вам информацию<br>в одной из инструкций</p>
+			</header>
+			<div class="row">
+				<div class="12u 12u$(small)">
+					<!-- search -->
+					<form action="{% url 'search' %}" method="GET">
+            <input name="s" type="search">
+            <i class="fa fa-search"></i>
+          </form>
+					<!-- /search -->
+				</div>
+			</div>
+		</section> 
+	</div>
+</section>
  <!-- Page Content -->
  <div class="container">
 
