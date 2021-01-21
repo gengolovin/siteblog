@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load sidebar %}
-{% load category %}
+{% load crispy_forms_tags %}
 
 {% block title %}Профиль пользователя{% endblock %}
 
@@ -35,13 +34,13 @@
       <div class="col-md-8">
             
          <div class="single-content">
-            <h1> Профиль пользователя</h1>
-            <h3>{{ user.username }}</h3>
-            {% if user.first_name and user.last_name %}
-            <p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
-            {% else %}
-            <p>Здравствуйте!</p>
-            {% endif %}
+            <h2> Правка личных данных пользователя</h2>
+            <form action="." method="post">
+                {% csrf_token %}
+                {{ form|crispy  }}
+                <input type="hidden" name="next" value="{{ next }}">
+                <input class="btn btn-success" type="submit" value="Сохранить">
+            </form>
          </div>        
       </div>
 

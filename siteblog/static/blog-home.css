@@ -49,6 +49,7 @@ a:hover{
    margin-top: 3.5rem;
    margin-left: 25px;
    padding: 10 10px;
+   margin-bottom: 2rem;
 }
 
 .col-md-8 .single-content h1{
@@ -223,10 +224,9 @@ a:hover{
 }
 
 .navbar-light .navbar-nav .nav-link {
-  font:inherit;
-  font-size: 1.08em;
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 16px;
+  color: #000;
 }
 
 
@@ -434,7 +434,7 @@ header.login {
 }
 
 .green-btn:hover {
-  background: #31b64e;
+  background: #07f13a;
   color: #fff;
 }
 

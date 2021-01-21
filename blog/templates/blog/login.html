@@ -5,12 +5,17 @@
   <div class="container 50%">
     <section>
       <header class="login">
+         <h2>Вход</h2>
+         {% if user.is_authenticated %}
+         <p>Вы уже выполнили вход.</p>
+         {% else %}
          <form action="." method="post">
          {% csrf_token %}
          {{ form|crispy  }}
          <input type="hidden" name="next" value="{{ next }}">
          <input class="btn btn-success" type="submit" value="Войти">
          </form>
+         {% endif %}
       </header>   
     </section>
   </div>

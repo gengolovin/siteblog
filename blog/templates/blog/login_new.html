@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+
+<html lang="ru" >
+<head>
+<title>Войти | Аутентификация пользователя</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/login.css">
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css">
+    
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+{% load crispy_forms_tags %}
+
+<body class=" login"
+  data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+         <h1 id="site-name"><a href="/privat/">Аутентификация пользователя</a></h1>
+        </div>
+   </div>
+    <!-- END Header -->
+    <!-- Content -->
+    <div id="content" class="colM">
+      <div id="content-main">
+
+         <form action="." method="post">
+             {% csrf_token %}
+             <div class="form-row">
+                {{ form.username|as_crispy_field  }}
+             </div>
+             <div class="form-row">
+                {{ form.password|as_crispy_field  }} 
+             </div>
+             <div class="submit-row">
+              <input class="btn btn-success" type="submit" value="Войти">
+             </div>
+        </form>
+
+      </div>
+      <br class="clear">
+    </div>
+    <!-- END Content -->
+    <div id="footer"></div>
+</div>
+<!-- END Container -->

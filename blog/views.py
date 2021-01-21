@@ -1,19 +1,25 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
+from django.views.generic.edit import UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from .models import Post, Tag, Category
 from django.db.models import F
-from .forms import LoginForm
+from .forms import LoginForm, ChangeUserInfoForm
+from django.contrib.auth.models import User
 
 class Home(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    paginate_by = 3
+    paginate_by = 4
 
     def get_queryset(self):
         return Post.objects.filter(status=True)
@@ -83,28 +89,9 @@ class Search(ListView):
         return context
 
 
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(request,
-                                username=cd['username'],
-                                password=cd['password'])
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponse('Успешная аунтификация')
-            else:
-                return HttpResponse('Disadled account')
-        else:
-            return HttpResponse('Invalid login')
-    else:
-        form = LoginForm()
-    return render(request, 'blog/login.html', {'form': form})
-
 class BLoginView(LoginView):
-    template_name = 'blog/login.html'
+    template_name = 'blog/login_new.html'
+
 
 class BLogoutView(LoginRequiredMixin, LogoutView):
     template_name ='blog/logout.html'
@@ -113,3 +100,28 @@ class BLogoutView(LoginRequiredMixin, LogoutView):
 @login_required
 def profile(request):
     return render(request,'blog/profile.html')
+
+
+class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'blog/change_user_info.html'
+    form_class = ChangeUserInfoForm
+    success_url = reverse_lazy('profile_change')
+    success_message = 'Данные пользователя изменены'
+
+    def setup(self, request, *args, **kwargs):
+        self.user_id = request.user.pk
+        return super().setup(request, *args, **kwargs)
+
+    
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.user_id)
+
+
+class BPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
+    template_name='blog/password_change.html'
+    success_url = reverse_lazy('profile')
+    success_message = 'Пароль пользователя изменен'
+  

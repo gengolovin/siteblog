@@ -44,7 +44,7 @@ class Post(models.Model):
     views = models.IntegerField(default=0, verbose_name='Кол-во просмотров')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='posts', verbose_name='Категория')
     tags = models.ManyToManyField(Tag, blank=True, related_name='posts', verbose_name='Tags')
-    status = models.BooleanField(default=True, verbose_name='Статус')
+    status = models.BooleanField(default=False, verbose_name='Статус')
 
     def __str__(self):
         return self.title
