@@ -403,8 +403,18 @@ font-family: "Exo 2", sans-serif;
   -webkit-background-size: cover;
   background-size: cover;
   background-repeat: repeat-x;
-  padding-top: 4em;
-  padding-bottom: 1em;
+  padding-top: 4em;  
+}
+
+
+.info-profile {
+  text-align: center;
+  background-color: #fff;
+  background-position: center center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: repeat-x;
+  padding-top: 2.5em;  
 }
 
 

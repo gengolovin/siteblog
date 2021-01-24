@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.views.generic.edit import UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
@@ -90,11 +91,13 @@ class Search(ListView):
 
 
 class BLoginView(LoginView):
-    template_name = 'blog/login_new.html'
+    template_name = 'blog/login.html'
 
 
-class BLogoutView(LoginRequiredMixin, LogoutView):
-    template_name ='blog/logout.html'
+class BLogoutView(SuccessMessageMixin, LoginRequiredMixin, LogoutView):
+    template_name = 'blog/logout.html'
+    success_message = 'Вы успешно вышли с сайта' 
+
 
 
 @login_required
@@ -122,6 +125,6 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 class BPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     template_name='blog/password_change.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('password_change')
     success_message = 'Пароль пользователя изменен'
   
