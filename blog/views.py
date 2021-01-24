@@ -94,10 +94,8 @@ class BLoginView(LoginView):
     template_name = 'blog/login.html'
 
 
-class BLogoutView(SuccessMessageMixin, LoginRequiredMixin, LogoutView):
+class BLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'blog/logout.html'
-    success_message = 'Вы успешно вышли с сайта' 
-
 
 
 @login_required
