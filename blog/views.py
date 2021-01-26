@@ -107,7 +107,7 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'blog/change_user_info.html'
     form_class = ChangeUserInfoForm
-    success_url = reverse_lazy('profile_change')
+    success_url = reverse_lazy('profile')
     success_message = 'Данные пользователя изменены'
 
     def setup(self, request, *args, **kwargs):
@@ -123,6 +123,6 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 class BPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     template_name='blog/password_change.html'
-    success_url = reverse_lazy('password_change')
+    success_url = reverse_lazy('profile')
     success_message = 'Пароль пользователя изменен'
   
