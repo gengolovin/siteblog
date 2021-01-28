@@ -1,7 +1,19 @@
- <!-- Footer -->
+{% load subscription_tags %}
+<!-- Footer -->
  <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+      <div class="subscription-block">
+      {% subscription_form %}
+      {% if messages %}
+          <p class="messages">
+          {% for message in messages %}
+              {{ message }}
+          {% endfor %}
+          </p>
+      {% endif %}
+      </div>
+     
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
     </div>
     <!-- /.container -->
   </footer>

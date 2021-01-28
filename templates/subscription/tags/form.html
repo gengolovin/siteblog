@@ -1,0 +1,8 @@
+<h4 class="text-uppercase editContent mb-lg-4 mb-3">Подписка на рассылку</h4>
+<p class="editContent">Подписывайтесь на обновления и получайте уведомления
+     о новых интересных статьях по почте.</p>
+<form action="{% url 'subscription' %}" method="post" class="w3layouts-newsletter">
+    {% csrf_token %}
+    {{ subscription_form }}
+    <button class="btn btn-primary"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+</form>

@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'ckeditor',
     'blog.apps.BlogConfig',
-    'crispy_forms',    
+    'subscription',
+    'crispy_forms',
+    'captcha',    
 ]
 
 MIDDLEWARE = [

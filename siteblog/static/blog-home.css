@@ -465,3 +465,14 @@ header.login {
   color: #1aaae5;
   border: 1px solid #1aaae5; 
 }
+
+.subscription-block {
+  max-width: 350px;
+  color: #fff;
+}
+
+.messages {
+  color:rgb(223, 139, 139);
+  
+}
+
