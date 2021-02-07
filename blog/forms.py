@@ -17,7 +17,7 @@ class ChangeUserInfoForm(forms.ModelForm):
 
 
 class UserCommentForm(forms.ModelForm):
-    
+        
     class Meta:
         model = Comment
         fields = ('name', 'email', 'body')

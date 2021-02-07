@@ -26,10 +26,11 @@ def post_detail(request, slug):
     initial = {'post': post.pk}
     if request.user.is_authenticated:
         initial['name'] = request.user.username
-        form_class = UserCommentForm
+        initial['email'] = request.user.email
+        form_class = UserCommentForm               
     else:
         form_class = GuestCommentForm
-    
+    form =form_class(initial=initial)
     # Comment posted
     if request.method == 'POST':
         comment_form = form_class(data=request.POST)
@@ -42,7 +43,7 @@ def post_detail(request, slug):
             # Save the comment to the database
             new_comment.save()
     else:
-        comment_form =  form_class()
+        comment_form =  form
 
     return render(request, template_name, {'post': post,
                                            'comments': comments,
