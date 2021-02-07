@@ -2,6 +2,7 @@
 {% load static %}
 {% load sidebar %}
 {% load category %}
+{% load crispy_forms_tags %}
 
 {% block title %}{{ post.title }}{{ title }} :: {{ block.super }}{% endblock %}
 
@@ -30,8 +31,42 @@
               <span>&nbsp;&nbsp;<i class="fa fa-eye fa-fw"></i>&nbsp;&nbsp;{{ post.views }}</span></div>
             </div>  
             {{ post.content|safe }}
-         </div>        
-      </div>
+         </div>
+         <div class="col-md-8">
+          <div class="card-body">
+            <!-- comments -->
+            <h4>{{ comments.count }} Комментарий</h4>
+    
+            {% for comment in comments %}
+            <div class="comments" style="padding: 10px;">
+              <p class="font-weight-bold">
+                {{ comment.name }}
+                <span class=" text-muted font-weight-normal">
+                  {{ comment.created_on }}
+                </span>
+              </p>
+              {{ comment.body | linebreaks }}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            {% if new_comment %}
+            <div class="alert alert-success" role="alert">
+              <p>Ваш комментарий ожидает модерации</p>
+            </div>
+            {% else %}
+            <h4>Оставьте комментарий</h4>
+            <form method="post" style="margin-top: 1.3em;">
+              {{ comment_form|crispy }}
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+            {% endif %}
+          </div>        
+       </div>
+      </div> 
 
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">

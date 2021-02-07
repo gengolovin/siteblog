@@ -57,3 +57,20 @@ class Post(models.Model):
         verbose_name_plural ='Статьи'
         ordering = ['-created_at']
 
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments', verbose_name='Статья')
+    name = models.CharField(max_length=80, verbose_name='Автор')
+    email = models.EmailField()
+    body = models.TextField(verbose_name='Комментарий')
+    created_on = models.DateTimeField(auto_now_add=True, verbose_name='Опубликован')
+    active = models.BooleanField(default=False, verbose_name='Выводить на сайт?')
+
+    class Meta:
+        verbose_name_plural = 'Комментарии'
+        verbose_name = 'Коментарий'
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)
+
